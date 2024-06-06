@@ -8,7 +8,7 @@
 </head>
 
 <body>
-  <h1>WELCOME !!! Ini adalah tampilan awal pembelajaran full stack web development</h1>
+  <h1>WELCOME !!! Ini tampilan awal pembelajaran full stack web development</h1>
 </body>
 
 </html>
