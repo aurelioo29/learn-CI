@@ -100,20 +100,20 @@
           <div class="row">
             <div class="col-md-4">
               <div class="form-group">
-                <label for="">Harga Beli <span class="text-danger">*</span></label>
-                <input type="text" name="harga_beli" id="harga_beli" autocomplete="off" class="form-control input-sm" onkeypress="return isNumber(this, event);" placeholder="Harga Beli">
+                <label for="harga_beli">Harga Beli <span class="text-danger">*</span></label>
+                <input type="text" name="harga_beli" id="" autocomplete="off" class="harga_beli form-control input-sm" onkeypress="return isNumber(this, event);" placeholder="Harga Beli">
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group">
-                <label for="">Harga Pokok <span class="text-danger">*</span></label>
-                <input type="text" name="harga_pokok" id="harga_pokok" autocomplete="off" class="form-control input-sm" onkeypress="return isNumber(this, event);" placeholder="Harga Pokok">
+                <label for="harga_pokok">Harga Pokok <span class="text-danger">*</span></label>
+                <input type="text" name="harga_pokok" id="" autocomplete="off" class="harga_pokok form-control input-sm" onkeypress="return isNumber(this, event);" placeholder="Harga Pokok">
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group">
-                <label for="">Harga Jual <span class="text-danger">*</span></label>
-                <input type="text" name="harga_jual" id="harga_jual" autocomplete="off" class="form-control input-sm" onkeypress="return isNumber(this, event);" placeholder="Harga Jual">
+                <label for="harga_jual">Harga Jual <span class="text-danger">*</span></label>
+                <input type="text" name="harga_jual" id="=" autocomplete="off" class="harga_jual form-control input-sm" onkeypress="return isNumber(this, event);" placeholder="Harga Jual">
               </div>
             </div>
           </div>

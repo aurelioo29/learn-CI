@@ -61,14 +61,40 @@ $(document).ready(function () {
 	$(document).on("keypress", "input,select", function (e) {
 		if (e.which == 13) {
 			e.preventDefault();
-			const $canfocus = $(":focusable");
-			const index = $canfocus.index(document.activeElement) + 1;
+			var $canfocus = $(":focusable");
+			var index = $canfocus.index(document.activeElement) + 1;
 			if (index >= $canfocus.length) index = 0;
 			$canfocus.eq(index).focus();
 		}
 	});
 
-	$("#harga_jual").on("keyup click change paste input", function (event) {
+	$(".harga_jual").on("keyup click change paste input", function (event) {
+		$(this).val(function (index, value) {
+			if (value != "") {
+				var decimalCount;
+				value.match(/\./g) === null
+					? (decimalCount = 0)
+					: (decimalCount = value.match(/\./g));
+
+				if (decimalCount.length > 1) {
+					return value.slice(0, -1);
+				}
+
+				var components = value.toString().split(".");
+				if (components.length === 1) components[0] = value;
+				components[0] = components[0]
+					.replace(/\D/g, "")
+					.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				if (components.length === 2) {
+					components[1] = components[1]
+						.replace(/\D/g, "")
+						.replace(/^\d{3}$/, "");
+				}
+			}
+		});
+	});
+
+	$(".harga_beli").on("keyup click change paste input", function (event) {
 		$(this).val(function (index, value) {
 			if (value != "") {
 				let decimalCount;
@@ -94,33 +120,7 @@ $(document).ready(function () {
 		});
 	});
 
-	$("#harga_beli").on("keyup click change paste input", function (event) {
-		$(this).val(function (index, value) {
-			if (value != "") {
-				let decimalCount;
-				value.match(/\./g) === null
-					? (decimalCount = 0)
-					: (decimalCount = value.match(/\./g));
-
-				if (decimalCount.length > 1) {
-					return value.slice(0, -1);
-				}
-
-				const components = value.toString().split(",");
-				if (components.length === 1) components[0] = value;
-				components[0] = components[0]
-					.replace(/\D/g, "")
-					.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-				if (components.length === 2) {
-					components[1] = components[1]
-						.replace(/\D/g, "")
-						.replace(/^\d{3}$/, "");
-				}
-			}
-		});
-	});
-
-	$("#harga_pokok").on("keyup click change paste input", function (event) {
+	$(".harga_pokok").on("keyup click change paste input", function (event) {
 		$(this).val(function (index, value) {
 			if (value != "") {
 				let decimalCount;
