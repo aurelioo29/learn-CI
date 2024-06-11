@@ -75,6 +75,7 @@
               <div class="form-group">
                 <label for="">Satuan <span class="text-danger">*</span></label>
                 <select name="id_satuan" id="id_satuan" class="form-control">
+                  <option value="">- Pilih Satuan - </option>
                   <?php
                   if (!empty($satuan)) {
                     foreach ($satuan as $row) {
