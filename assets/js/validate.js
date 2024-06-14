@@ -5,7 +5,7 @@ jQuery.extend(jQuery.expr[":"], {
 });
 
 function isNumber(txt, evt) {
-	let charCode = evt.which ? evt.which : evt.keyCode;
+	var charCode = evt.which ? evt.which : evt.keyCode;
 	if (charCode == 46) {
 		if (txt.value.indexOf(".") === -1) {
 			return true;
@@ -13,9 +13,7 @@ function isNumber(txt, evt) {
 			return false;
 		}
 	} else {
-		if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-			return false;
-		}
+		if (charCode > 31 && (charCode < 48 || charCode > 57)) return false;
 	}
 	return true;
 }
@@ -38,7 +36,7 @@ function isEmptyNumber(v) {
 		if (v.length < 1) {
 			return true;
 		}
-	} else if (type === "string") {
+	} else if (v.length === "string") {
 		if (v.length < 1) {
 			return true;
 		}
@@ -61,23 +59,24 @@ $(document).ready(function () {
 	$(document).on("keypress", "input,select", function (e) {
 		if (e.which == 13) {
 			e.preventDefault();
+			// Get all focusable elements on the page
 			var $canfocus = $(":focusable");
 			var index = $canfocus.index(document.activeElement) + 1;
 			if (index >= $canfocus.length) index = 0;
 			$canfocus.eq(index).focus();
 		}
 	});
-
-	$(".harga_jual").on("keyup click change paste input", function (event) {
+	$("#harga_jual").on("keyup click change paste input", function (event) {
 		$(this).val(function (index, value) {
 			if (value != "") {
+				// return '$' + value.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 				var decimalCount;
 				value.match(/\./g) === null
 					? (decimalCount = 0)
 					: (decimalCount = value.match(/\./g));
 
 				if (decimalCount.length > 1) {
-					return value.slice(0, -1);
+					value = value.slice(0, -1);
 				}
 
 				var components = value.toString().split(".");
@@ -90,23 +89,26 @@ $(document).ready(function () {
 						.replace(/\D/g, "")
 						.replace(/^\d{3}$/, "");
 				}
+				if (components.join(".") != "") return components.join(".");
+				else return "";
 			}
 		});
 	});
 
-	$(".harga_beli").on("keyup click change paste input", function (event) {
+	$("#harga_beli").on("keyup click change paste input", function (event) {
 		$(this).val(function (index, value) {
 			if (value != "") {
-				let decimalCount;
+				// return '$' + value.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				var decimalCount;
 				value.match(/\./g) === null
 					? (decimalCount = 0)
 					: (decimalCount = value.match(/\./g));
 
 				if (decimalCount.length > 1) {
-					return value.slice(0, -1);
+					value = value.slice(0, -1);
 				}
 
-				const components = value.toString().split(",");
+				var components = value.toString().split(".");
 				if (components.length === 1) components[0] = value;
 				components[0] = components[0]
 					.replace(/\D/g, "")
@@ -116,23 +118,27 @@ $(document).ready(function () {
 						.replace(/\D/g, "")
 						.replace(/^\d{3}$/, "");
 				}
+
+				if (components.join(".") != "") return components.join(".");
+				else return "";
 			}
 		});
 	});
 
-	$(".harga_pokok").on("keyup click change paste input", function (event) {
+	$("#harga_pokok").on("keyup click change paste input", function (event) {
 		$(this).val(function (index, value) {
 			if (value != "") {
-				let decimalCount;
+				// return '$' + value.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				var decimalCount;
 				value.match(/\./g) === null
 					? (decimalCount = 0)
 					: (decimalCount = value.match(/\./g));
 
 				if (decimalCount.length > 1) {
-					return value.slice(0, -1);
+					value = value.slice(0, -1);
 				}
 
-				const components = value.toString().split(",");
+				var components = value.toString().split(".");
 				if (components.length === 1) components[0] = value;
 				components[0] = components[0]
 					.replace(/\D/g, "")
@@ -142,6 +148,8 @@ $(document).ready(function () {
 						.replace(/\D/g, "")
 						.replace(/^\d{3}$/, "");
 				}
+				if (components.join(".") != "") return components.join(".");
+				else return "";
 			}
 		});
 	});
