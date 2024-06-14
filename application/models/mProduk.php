@@ -1,23 +1,16 @@
 <?php
-
 class mProduk extends CI_Model
 {
-  function __construct()
+  function getKategori()
   {
-    parent::__construct();
-    $this->load->database(); // Pastikan database di-load
+    $query = $this->db->get('tbl_m_kategori'); 
+    return $query->result(); 
   }
 
-  function get_kategori()
+  function getSatuan()
   {
-    $query = $this->db->get('tbl_m_kategori'); // 'kategori' adalah nama tabel di database
-    return $query->result(); // Mengembalikan hasil sebagai array objek
-  }
-
-  function get_satuan()
-  {
-    $query = $this->db->get('tbl_m_satuan'); // 'satuan' adalah nama tabel di database
-    return $query->result(); // Mengembalikan hasil sebagai array objek
+    $query = $this->db->get('tbl_m_satuan');
+    return $query->result(); 
   }
 
   function getData()
@@ -29,38 +22,45 @@ class mProduk extends CI_Model
     return $this->db->get()->result();
   }
 
+  //Menambah Data(Create)
   function insertData($data)
   {
-    $this->db->insert('tbl_m_produk', $data);
+    return $this->db->insert('tbl_m_produk', $data);
   }
 
+  //Untuk Menampilkan Data Berdasarkan ID(Read)
   function getDataById($id)
   {
     $this->db->where('id_produk', $id);
     return $this->db->get('tbl_m_produk')->row();
   }
 
+  //Update Data berdasarkan ID(Update)
   function updateData($id, $data)
   {
     $this->db->where('id_produk', $id);
     return $this->db->update('tbl_m_produk', $data);
   }
 
+  //Menghapus data berdasarkan ID(Delete)
   function deleteData($id)
   {
     $this->db->where('id_produk', $id);
     return $this->db->delete('tbl_m_produk');
   }
 
-  function cekDuplicate($kategori)
+  //Validasi Data Duplikat
+  function cekDuplicate($produk)
   {
-    $this->db->where('nama_produk', $kategori);
-    return $this->db->get('tbl_m_produk')->num_rows();
+    $this->db->where('nama_produk', $produk);
+    $query = $this->db->get('tbl_m_produk');
+    return $query->num_rows();
   }
 
+  // Membuat Kode Barang otomatis berdasarkan Kategori
   function getKode($id_kategori)
   {
-    $query = $this->db->query("SELECT MAX(RIGHT(kode_produk, 6)) AS kd_max FROM tbl_m_produk WHERE id_kategori = '$id_kategori'");
+    $query = $this->db->query("SELECT MAX(RIGHT(id_produk,6)) AS kd_max FROM tbl_m_produk WHERE id_kategori='$id_kategori'");
     $isCode = '';
     if ($query->num_rows() > 0) {
       foreach ($query->result() as $k) {
